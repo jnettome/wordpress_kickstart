@@ -5,6 +5,20 @@ uses git.
 
 Based on the great markjaquith/WordPress-Skeleton.
 
+## GETTING STARTED
+
+install https://github.com/smdahlen/vagrant-digitalocean
+clone this repo
+modify vagrantfile as your needs
+    vagrant up
+
+if you need to provision a digitalocean droplet, do
+
+    vagrant up --provider=digital_ocean
+
+This command will create a new droplet, setup your SSH key for authentication, create a new user account, and run the provisioners you have configured.
+
+
 ## Assumptions
 
 * Webroot in `/files`

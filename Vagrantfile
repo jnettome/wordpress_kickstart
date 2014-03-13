@@ -34,6 +34,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", "512"]
   end
 
+  config.vm.provider :digital_ocean do |provider, override|
+    override.ssh.private_key_path = '~/.ssh/id_dsa'
+    override.vm.box_url = 'https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box'
+
+    provider.client_id = 'MY-SECRET-ID'
+    provider.api_key = 'MY-SUPER-SECRET-API-KEY'
+
+    provider.image = 'Debian 7.0 x64'
+    provider.region = 'New York 1'
+    provider.size = '512MB'
+  end
+
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
   # You will need to create the manifests directory and a manifest in
