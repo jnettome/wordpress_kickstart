@@ -132,3 +132,7 @@ class { 'apt':
 include build-essentials-requirement
 include nginx-requirement
 include php-setup
+
+notice "------------------------------------------------------------------------"
+notice "|                     Wordpress Kickstart                              |"
+notice "------------------------------------------------------------------------"

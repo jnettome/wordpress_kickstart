@@ -1,6 +1,3 @@
-[submodule "files/wp"]
-	path = files/wp
-	url = git://github.com/WordPress/WordPress.git
 [submodule "modules/nginx"]
 	path = modules/nginx
 	url = git@github.com:netmanagers/puppet-nginx.git
@@ -16,3 +13,6 @@
 [submodule "modules/stdlib"]
 	path = modules/stdlib
 	url = git@github.com:puppetlabs/puppetlabs-stdlib.git
+[submodule "modules/example42-puppi"]
+	path = modules/example42-puppi
+	url = git@github.com:example42/puppi.git

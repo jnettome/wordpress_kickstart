@@ -7,9 +7,6 @@ Based on [markjaquith/WordPress-Skeleton](http://github.com/markjaquith/WordPres
 ## Assumptions
 
   * Your webroot is `/files`
-  * Wordpress is a git submodule stored in `/files/wp`
-  * Your wp-content folder is `/files/content`. You should use this path to store your themes and plugins that you are working on
-  * `wp-config.php`, `index.php`, `.htaccess` on folder `/files` are configured to work with this folder structure described here
   * All writable directories are symlinked to similarly named locations under `/shared/`.
   * Your production stack is hosted on DigitalOcean
 
@@ -17,7 +14,13 @@ Based on [markjaquith/WordPress-Skeleton](http://github.com/markjaquith/WordPres
 
 Install [vagrant-digitalocean](https://github.com/smdahlen/vagrant-digitalocean).
 
+Install [vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater)
+
 Clone this repository like `git clone git@github.com:jnettome/wordpress_kickstart.git my-wordpress-project`
+
+Configure your `Vagrantfile` as your needs.
+
+__In order to use with DigitalOcean__ you need to change your DigitalOcean's API credentials in `Vagrantfile`.
 
 If you're working on development
 
@@ -31,14 +34,12 @@ Or if you're working on production deployment and provisioning
 
 This command will create a new droplet, setup your SSH key for authentication, create a new user account, and run the provisioners configured.
 
-__In order to use with DigitalOcean__ you need to change your DigitalOcean's API credentials in `Vagrantfile`.
-
 __When you are switching from production to development__ or the opposite, remove `.vagrant/` from your project's root folder [(info)](http://blog.publysher.nl/2013/07/infra-as-repo-using-vagrant-and-salt.html).
 
 
 ## Working with
 
-Access your wordpress on [http://192.168.4.20](http://192.168.4.20).
+Access your wordpress on [http://192.168.4.20](http://192.168.4.20) or pointing to your hostname from Vagrantfile if you're using vagrant-hostsupdater.
 
 Default mysql credentials:
 
@@ -52,4 +53,4 @@ Default mysql credentials:
 
 * Vagrant hosts plugin
 * Better production provisioning (secure)
-* Configure deploy method (git or capistrano or puppi)
+* Configure deploy method (git or capistrano)

@@ -39,10 +39,6 @@ server {
     deny all;
   }
 
-  location / {
-    try_files $uri $uri/ /index.php?$args;
-  }
-
   gzip on;
   gzip_http_version 1.0;
   gzip_proxied any;

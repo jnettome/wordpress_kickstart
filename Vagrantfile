@@ -1,13 +1,14 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   config.vm.network "private_network", ip: "192.168.4.20"
-  config.vm.hostname = 'mcgyver'
+
+  # Change this as your needs
+  config.vm.hostname = 'mcgyver.dionochner.com.br'
 
   config.vm.synced_folder "./files", "/home/vagrant/releases/current"
   config.vm.synced_folder "./shared", "/home/vagrant/shared"
@@ -25,10 +26,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision :shell,
-    inline: "if [[ ! -f /apt-get-run ]]; then sudo apt-get update && sudo touch /apt-get-run; fi"
+    inline: "sudo apt-get update -y && sudo apt-get install puppet -y"
 
   config.vm.provision :shell,
-    inline: "sudo apt-get install puppet -y"
+    inline: "sudo usermod -a -G www-data vagrant"
+
+  config.vm.provision :shell,
+    inline: "sudo chown -R vagrant:www-data /home/vagrant && sudo chmod -R g+w /home/vagrant && sudo chmod g+s /home/vagrant"
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "manifests"
