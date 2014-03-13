@@ -2,7 +2,7 @@ server {
   listen 80;
 
   server_name _;
-  root /var/www;
+  root /home/vagrant/releases/current;
   index index.html index.htm index.php;
 
   location / {
@@ -11,11 +11,48 @@ server {
 
   # pass the PHP scripts to FastCGI server listening socket
   location ~ \.php$ {
+    try_files $uri =404;
+
     fastcgi_pass unix://var/run/php5-fpm.sock;
     fastcgi_keep_conn on;
     fastcgi_split_path_info ^(.+\.php)(/.*)$;
     include fastcgi_params;
     fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
     fastcgi_param  HTTPS              off;
+    fastcgi_pass_header Host;
+    fastcgi_pass_header X-Real-IP;
+    fastcgi_pass_header X-Forwarded-For;
   }
+
+  location ~ /\. {
+    deny all;
+  }
+
+  location ~ /\..*/.* {
+    deny all;
+  }
+
+  # Deny access to any files with a .php extension in the uploads directory
+  # Works in sub-directory installs and also in multisite network
+  # Keep logging the requests to parse later (or to pass to firewall utilities such as fail2ban)
+  location ~* /(?:uploads|files)/.*\.php$ {
+    deny all;
+  }
+
+  location / {
+    try_files $uri $uri/ /index.php?$args;
+  }
+
+  gzip on;
+  gzip_http_version 1.0;
+  gzip_proxied any;
+  gzip_min_length 500;
+  gzip_disable "MSIE [1-6]\.";
+  gzip_types text/plain text/xml text/css
+             text/comma-separated-values
+             text/javascript application/x-javascript
+             application/atom+xml;
+
+
+  client_max_body_size 128m;
 }
