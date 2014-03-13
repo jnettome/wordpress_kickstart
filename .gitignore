@@ -4,3 +4,4 @@
 /db-sync
 /files/content/upgrade/
 .DS_Store
+.vagrant
